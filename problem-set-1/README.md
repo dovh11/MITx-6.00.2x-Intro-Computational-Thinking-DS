@@ -1,0 +1,1 @@
+This is my solutions for all problem sets in the course **MITx 6.00.2x: Introduction to Computational Thinking and Data Science**.
