@@ -1,0 +1,3 @@
+while cows dict not empty:
+    inner list:
+        
