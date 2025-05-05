@@ -32,7 +32,7 @@ def load_cows(filename):
 
 
 # Problem 1
-def greedy_cow_transport(cows,limit=10):
+def greedy_cow_transport(cows, limit=10):
     """
     Uses a greedy heuristic to determine an allocation of cows that attempts to
     minimize the number of spaceship trips needed to transport all the cows. The
@@ -82,7 +82,7 @@ def greedy_cow_transport(cows,limit=10):
 
 
 # Problem 2
-def brute_force_cow_transport(cows,limit=10):
+def brute_force_cow_transport(cows, limit=10):
     """
     Finds the allocation of cows that minimizes the number of spaceship trips
     via brute force.  The brute force algorithm should follow the following method:
@@ -103,7 +103,23 @@ def brute_force_cow_transport(cows,limit=10):
     trips
     """
     # TODO: Your code here
-    pass
+    copyCows = cows.copy()
+    bestAllocation = None
+
+    for partition in get_partitions(copyCows):
+        valid = True
+        for trip in partition:
+            total = 0
+            for cow in trip:
+                total += copyCows[cow]
+            if total > limit:
+                valid = False
+                break
+        if valid:
+            if bestAllocation == None or len(partition) < len(bestAllocation):
+                bestAllocation = partition
+
+    return bestAllocation
 
         
 # Problem 3
@@ -121,7 +137,24 @@ def compare_cow_transport_algorithms():
     Does not return anything.
     """
     # TODO: Your code here
-    pass
+    cows = load_cows("ps1_cow_data.txt")
+    limit = 10
+
+    # Greedy Algorithm
+    start = time.time()
+    greedy = greedy_cow_transport(cows, limit)
+    end = time.time()
+    print("Greedy Algorithm:")
+    print(f"Number of trips: {len(greedy)}")
+    print(f"Execution time: {end - start:.4f} seconds\n")
+
+    # Brute Force Algorithm
+    start = time.time()
+    bruteForce = brute_force_cow_transport(cows, limit)
+    end = time.time()
+    print("Brute Force Algorithm:")
+    print(f"Number of trips: {len(bruteForce)}")
+    print(f"Execution time: {end - start:.4f} seconds")
 
 
 """
@@ -130,13 +163,15 @@ Do not submit this along with any of your answers. Uncomment the last two
 lines to print the result of your problem.
 """
 
+# [by @dovh11] These 2 lines of code below (in comment form) are useful for debugging
+# import os
+# cows = load_cows(os.path.join(os.path.dirname(__file__), "ps1_cow_data.txt"))
 # cows = load_cows("ps1_cow_data.txt")
-import os
-cows = load_cows(os.path.join(os.path.dirname(__file__), "ps1_cow_data.txt"))
-limit=100
-print(cows)
+# limit=100
+# print(cows)
 
-print(greedy_cow_transport(cows, limit))
-print(brute_force_cow_transport(cows, limit))
+# print(greedy_cow_transport(cows, limit))
+# print(brute_force_cow_transport(cows, limit))
 
 
+compare_cow_transport_algorithms()
