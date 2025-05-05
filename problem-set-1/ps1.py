@@ -163,7 +163,7 @@ Do not submit this along with any of your answers. Uncomment the last two
 lines to print the result of your problem.
 """
 
-# [by @dovh11] These 2 lines of code below (in comment form) are useful for debugging
+# [by @dovh11] These 2 lines of code below (in commented form) are useful for debugging
 # import os
 # cows = load_cows(os.path.join(os.path.dirname(__file__), "ps1_cow_data.txt"))
 cows = load_cows("ps1_cow_data.txt")
